@@ -1,7 +1,42 @@
-var game = new Game(1080,720); 
+
 var canvas; 
 var ctx; 
-game.InitializateCanvas(); 
+
+//____________________________________________________________________
+//CREATE CANVAS IN SCREEN
+canvas = document.createElement("canvas"); 
+ctx = canvas.getContext("2d"); 
+
+canvas.width = 1080; 
+canvas.height = 720;
+
+document.body.appendChild(canvas);      //Create the canvas in the HTML document
+
+
+//START - Load things the start of the game
+function Start(){
+	console.log("Start Game"); 
+}
+
+//RESET THE GAME
+function Reset(){
+	console.log("reset"); 
+}
+
+function Render(){
+	
+	//Render a Background with colour Black 
+	console.log("Background black"); 
+	ctx.fillStyle = "black"; 
+	ctx.fillRect(0,0,canvas.width,canvas.height); 
+
+	//Render the player
+	player.Render(); 
+}
+
+function Update(keysDownArray, modifier){
+	player.Update(keysDownArray,modifier); 
+}
 
 
 //____________________________________________________________________
@@ -15,13 +50,13 @@ addEventListener("keyup",function(e){
 	false);  
 
 //____________________________________________________________________
-// The main game loop
+// THE MAIN GAME LOOP
 var main = function () {
 	var now = Date.now();
 	var delta = now - then;
 
-	game.Update(keysDown, delta / 1000);
-	game.Render();
+	Update(keysDown, delta / 1000);
+	Render();
 
 	then = now;
 
@@ -41,6 +76,7 @@ player.SetPosition(canvas.width/2,canvas.height/2);
 var alien1 = new Alien(); 
 
 //MAIN GAME LOOP
-game.Reset(); 
-game.Start(); 
-main();
+Reset(); 
+Start(); 
+
+main();		//Start the main loop of the game 

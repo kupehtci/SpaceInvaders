@@ -1,8 +1,8 @@
 class PlayerShip{
     constructor(){
         //VARS FOR MOVEMENT
-        this.x = 0; 
-        this.y = 0; 
+        this.x = 40; 
+        this.y = 100; 
         this.speedX = 0; 
         this.speedY = 0; 
         this.speed = 400; 
