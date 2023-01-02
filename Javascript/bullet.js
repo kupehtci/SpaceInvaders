@@ -1,3 +1,4 @@
+
 class Bullet{
     constructor(){
         this.x = 0; 
