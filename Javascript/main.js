@@ -12,20 +12,22 @@ canvas.height = 720;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
-
+//____________________________________________________________________
 //START - Load things the start of the game
 function Start(){
 	console.log("Start Game"); 
 }
-
+//____________________________________________________________________
 //RESET THE GAME
 function Reset(){
 	console.log("reset"); 
 }
 
-function Render(){
+//____________________________________________________________________
+//RENDER THE GAME
+function Render(){d
 	
-	//Render a Background with colour Black 
+	//Render a Background with colour Black aa
 	console.log("Background black"); 
 	ctx.fillStyle = "black"; 
 	ctx.fillRect(0,0,canvas.width,canvas.height); 

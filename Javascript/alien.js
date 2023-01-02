@@ -1,3 +1,6 @@
+import { colision } from "./colision"; 
+
+
 class Alien{
     constructor(){
         //VARS FOR MOVEMENT

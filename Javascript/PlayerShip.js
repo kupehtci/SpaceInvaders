@@ -85,4 +85,8 @@ class PlayerShip{
             this.x = windowWidth - this.width; 
         }
     }
+
+    Shoot(){
+        
+    }
 }
