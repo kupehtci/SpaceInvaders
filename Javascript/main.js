@@ -25,7 +25,7 @@ function Reset(){
 
 //____________________________________________________________________
 //RENDER THE GAME
-function Render(){d
+function Render(){
 	
 	//Render a Background with colour Black aa
 	console.log("Background black"); 
@@ -74,8 +74,8 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now(); 
 
 var player = new PlayerShip();
-player.SetPosition(canvas.width/2,canvas.height/2); 
-var alien1 = new Alien(); 
+player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
+var alien1 = new Alien(); 	
 
 //MAIN GAME LOOP
 Reset(); 
