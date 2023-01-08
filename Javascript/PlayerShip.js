@@ -6,7 +6,7 @@ class PlayerShip{
         this.y = 100; 
         this.speedX = 0; 
         this.speedY = 0; 
-        this.speed = 400; 
+        this.speed = 300; 
 
         //LOAD IMAGE AND IMAGE VARS
         this.imageReady = false; 
@@ -25,6 +25,7 @@ class PlayerShip{
         image.src = "./Assets/player.png"; 
 
         //VARS FOR SHOOTING
+        this.zeroBullets = true;
 
     }
 
@@ -54,6 +55,15 @@ class PlayerShip{
         //Left
         if(37 in l_keysDown || 65 in l_keysDown){
             this.speedX -= this.speed * modifier; 
+        }
+
+        //shoot
+        if(32 in l_keysDown){
+            this.Shoot();
+        }
+        //if bullet image is hidden means you can fire again
+        if (pBullet.imageReady == false){
+            this.zeroBullets = true;
         }
 
         //Apply the speed into the position
@@ -87,7 +97,16 @@ class PlayerShip{
         }
     }
 
-    Shoot(){
+    Shoot()
+    {
+
+        if (this.zeroBullets == true)//there can only be one player bullet at a time
+        {
+            this.zeroBullets = false;
+            pBullet.imageReady = true;
+            pBullet.x = this.x + (this.width/2)*this.scale - 5;
+            pBullet.y = this.y-30;
+        }
         
     }
 }

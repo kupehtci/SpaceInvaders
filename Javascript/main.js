@@ -34,10 +34,13 @@ function Render(){
 
 	//Render the player
 	player.Render(); 
+	pBullet.Render();
+
 }
 
 function Update(keysDownArray, modifier){
 	player.Update(keysDownArray,modifier); 
+	pBullet.Update(modifier);
 }
 
 
@@ -74,6 +77,7 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 var then = Date.now(); 
 
 var player = new PlayerShip();
+var pBullet = new playerBullet();
 player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
 var alien1 = new Alien(); 	
 

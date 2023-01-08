@@ -4,7 +4,7 @@
  * @param {Object} objeto2 Object 2 for comparing images
  * @returns True if one image is colliding with the other 1
  */
-function colision(obj1, obj2) {
+function collision(obj1, obj2) {
     let a = {
         d: obj1.y + obj1.height,
         u: obj1.y,
