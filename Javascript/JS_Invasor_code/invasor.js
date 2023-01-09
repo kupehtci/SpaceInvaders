@@ -19,6 +19,7 @@ class Alien{
             this.sprite = image;        //Assign the image to the var sprite and set ready 
             this.imageReady = true; 
         }
+        image.src = "./Assets/alien1.1.png"; 
     }
 
     /**
