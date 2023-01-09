@@ -44,6 +44,8 @@ function Render(){
 	pBullet.Render();
 
 	invasorMatrix.Render(); 
+
+	hud.Render(ctx); 
 }
 
 function Update(keysDownArray, modifier, ticks){
@@ -74,6 +76,8 @@ function Update(keysDownArray, modifier, ticks){
 	if(invasorMatrix.numInvasorsAlive <= 0){
 		invasorMatrix.CreateMatrix(6,6); 
 	}	
+
+	
 }
 
 
