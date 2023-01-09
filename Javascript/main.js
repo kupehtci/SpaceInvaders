@@ -34,6 +34,8 @@ function Render(){
 
 	//Render the player
 	player.Render(); 
+
+	//Render the bullet
 	pBullet.Render();
 
 }
