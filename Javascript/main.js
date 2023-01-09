@@ -4,7 +4,7 @@
 
 var canvas; 
 var ctx; 
-var screenWidth = 640; 
+var screenWidth = 480; 
 var screenHeight = 480; 
 
 
@@ -74,7 +74,7 @@ function Update(keysDownArray, modifier, ticks){
 
 	//Check if there are invasors remaining
 	if(invasorMatrix.numInvasorsAlive <= 0){
-		invasorMatrix.CreateMatrix(6,6); 
+		invasorMatrix.CreateMatrix(11,5); 
 	}	
 
 	
@@ -125,7 +125,7 @@ var pBullet = new playerBullet();
 player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
 var alien1 = new Alien(); 	
 
-var invasorMatrix = new InvasorMatrix(4,4); 
+var invasorMatrix = new InvasorMatrix(11,5); 
 
 
 //MAIN GAME LOOP

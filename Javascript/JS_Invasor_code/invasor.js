@@ -62,4 +62,8 @@ class Alien{
 
         return false; 
     }
+
+    Shoot(){
+        console.log("shoot"); 
+    }
 }
