@@ -62,7 +62,9 @@ class InvasorMatrix{
     }
 
     InvasorsCollideBorders(){
+        //Down all the invasors
 
+        //Change direction
     }
 
 
