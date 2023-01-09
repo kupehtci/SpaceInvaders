@@ -1,14 +1,16 @@
 
 var canvas; 
 var ctx; 
+var screenWidth = 1080; 
+var screenHeight = 720; 
 
 //____________________________________________________________________
 //CREATE CANVAS IN SCREEN
 canvas = document.createElement("canvas"); 
 ctx = canvas.getContext("2d"); 
 
-canvas.width = 1080; 
-canvas.height = 720;
+canvas.width = screenWidth; 
+canvas.height = screenHeight;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
@@ -85,7 +87,7 @@ var pBullet = new playerBullet();
 player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
 var alien1 = new Alien(); 	
 
-var invasorMatrix = new InvasorMatrix(4,4,canvas.width,canvas.height); 
+var invasorMatrix = new InvasorMatrix(4,4,screenWidth,screenHeight); 
 
 
 //MAIN GAME LOOP

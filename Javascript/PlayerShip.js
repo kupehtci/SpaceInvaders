@@ -12,7 +12,7 @@ class PlayerShip{
         this.imageReady = false; 
         var image = new Image(); 
 
-        this.scale = 2; 
+        this.scale = 3; 
 
         image.onload  = () => {
             this.height = image.height * this.scale; 
@@ -39,7 +39,7 @@ class PlayerShip{
     Render(){
         
         if(this.imageReady){ 
-            ctx.drawImage(this.sprite,this.x,this.y,this.width * this.scale,this.height * this.scale); 
+            ctx.drawImage(this.sprite,this.x,this.y,this.width,this.height); 
         }
     }
 
@@ -102,7 +102,7 @@ class PlayerShip{
         {
             this.zeroBullets = false;
             pBullet.imageReady = true;
-            pBullet.x = this.x + (this.width/2)*this.scale - 5;
+            pBullet.x = this.x + (this.width/2) - 5;
             pBullet.y = this.y-30;
         }
         

@@ -10,7 +10,7 @@ class InvasorMatrix{
      * @param {int} screenHeight Height of the screen for calculating aliens position and checking when invasors has reached earth and loose game
      */
     constructor(numColumns,numRows,screenWidth,screenHeight){
-                
+        console.log(typeof(screenHeight)); 
         //Position vars
         this.sepLeft = 20; 
         this.sepTop = 20; 
@@ -25,13 +25,18 @@ class InvasorMatrix{
                 this.invasors[index] = new Alien();
 
                 let invasorPosX = this.sepLeft + (j * this.sepWide); 
-                let invasorPosY = this.sepHeight + (i * this.sepTall);
+                let invasorPosY = this.sepTop + (i * this.sepTall);
                 this.invasors[index].SetPosition(invasorPosX,invasorPosY); 
             }
         }
+        /** Count the number of invaders remaining*/
+        this.numberOfInvasors = (numRows * numColumns);             
 
-        //Vars for invasors movement
-        
+        //VARS FOR INVASORS MOVEMENT
+        /**Displacement that all aliens go down when the matrix touch the sides of the screen */
+        this.dispDown = 10;             
+        /**Direction of movement, 1 to move right and -1 to move left */
+        this.direction = 1; 
     }
 
     /**
@@ -39,10 +44,17 @@ class InvasorMatrix{
      */
     Render(){
         this.invasors.forEach(invasor => {
-            if(invasor.imageReady){
-                console.log("Invasor render"); 
+            if(invasor.imageReady && invasor.active){
                 invasor.Render(); 
             }
         });
+    }
+
+    Update(){
+
+    }
+
+    InvasorsCollideBorders(){
+
     }
 }

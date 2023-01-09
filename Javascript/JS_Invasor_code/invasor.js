@@ -8,7 +8,7 @@ class Alien{
         this.speedX = 0; 
 
         //VARS FOR IMAGE 
-        this.scale = 1; 
+        this.scale = 2; 
 
         this.imageReady = false; 
         var image = new Image(); 
@@ -20,7 +20,10 @@ class Alien{
             this.imageReady = true; 
             console.log("Created alien"); 
         }
-        image.src = "./Assets/alien1.1.png"; 
+        image.src = "./Assets/alien1.1.png";
+        
+        //Destroy vars
+        this.active = true; 
     }
 
     /**
@@ -37,10 +40,11 @@ class Alien{
      * Takes on account the scale defined in the invasor when rendering
      */
     Render(){
-        if(this.imageReady){
-            ctx.drawImage(this.sprite,this.x,this.y,this.width * this.scale,this.height * this.scale); 
+        if(this.imageReady && this.active){
+            console.log("Invasor render at: " + this.x + " _ " + this.y); 
+            ctx.drawImage(this.sprite,this.x,this.y,this.width,this.height); 
         }
     }
-
+    
 
 }
