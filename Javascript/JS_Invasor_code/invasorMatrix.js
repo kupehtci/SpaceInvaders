@@ -9,7 +9,7 @@ class InvasorMatrix{
      * @param {int} screenWidth Width of the screen for calculating aliens position
      * @param {int} screenHeight Height of the screen for calculating aliens position and checking when invasors has reached earth and loose game
      */
-    constructor(numColumns,numRows,screenWidth,screenHeight){
+    constructor(numColumns,numRows){
         
         //Position vars
         this.sepLeft = 20; 
@@ -19,10 +19,11 @@ class InvasorMatrix{
 
         //Create all the invasors
         this.invasors = [];
+        this.numInvasorsAlive = 0; 
         this.CreateMatrix(numColumns,numRows);
         
         /** Count the number of invaders remaining*/
-        this.numInvasorsAlive = (numRows * numColumns);             
+               
 
         //VARS FOR INVASORS MOVEMENT
         /**Displacement that all aliens go down when the matrix touch the sides of the screen */
@@ -30,7 +31,9 @@ class InvasorMatrix{
         /**Direction of movement, 1 to move right and -1 to move left */
         this.direction = 1; 
         /**Define the invasors speed that increases when dificulty increases */
-        this.invasorsSpeed = 3; 
+        this.invasorsSpeed = 1; 
+        /**Factor that increments the speed when an invasor dies */
+        this.increaseSpeedFactor = 0.1; 
     }
 
     /**
@@ -45,19 +48,33 @@ class InvasorMatrix{
     }
 
     Update(tick){
+        let goDown = false; 
 
         //Move the invasors into the new direction
-        var TicksQntBwMovement = 3; 
+        var TicksQntBwMovement = 1; 
         if(tick % TicksQntBwMovement == 0){
             this.invasors.forEach(invasor => {
-                invasor.SetPosition(invasor.x + this.invasorsSpeed,invasor.y);
+                invasor.SetPosition(invasor.x + (this.invasorsSpeed * this.direction),invasor.y);
             });
+        }
+        
+        this.invasors.forEach(invasor => {
+            if(invasor.CheckBorders()){
+                goDown = true; 
+            }
+        }); 
+        if(goDown == true){
+            this.direction = this.direction * -1;
+            this.invasors.forEach(invasor => {
+                invasor.SetPosition(invasor.x + (this.invasorsSpeed * this.direction),invasor.y + this.dispDown); 
+            }); 
+            goDown = false; 
         }
     }
 
     CreateMatrix(numColumns, numRows){
-        for(var i = 0; i < numRows; i++){
-            for(var j = 0; j < numColumns; j++){
+        for(let i = 0; i < numRows; i++){
+            for(let j = 0; j < numColumns; j++){
                 let index = ((numColumns * i) + j); 
                 this.invasors[index] = new Alien();
 
@@ -66,6 +83,7 @@ class InvasorMatrix{
                 this.invasors[index].SetPosition(invasorPosX,invasorPosY); 
             }
         }
+        this.numInvasorsAlive = (numRows * numColumns);
     }
 
     InvasorsCollideBorders(){

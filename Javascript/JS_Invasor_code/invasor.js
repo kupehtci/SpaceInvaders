@@ -24,6 +24,7 @@ class Alien{
         
         //Destroy vars
         this.active = true; 
+        this.scoreEarned = 10; 
     }
 
     /**
@@ -41,10 +42,24 @@ class Alien{
      */
     Render(){
         if(this.imageReady && this.active){
-            console.log("Invasor render at: " + this.x + " _ " + this.y); 
+            //console.log("Invasor render at: " + this.x + " _ " + this.y); 
             ctx.drawImage(this.sprite,this.x,this.y,this.width,this.height); 
         }
     }
     
+    /**Check if alien is colliding the screen borders */
+    CheckBorders(){
+        var windowWidth = screenWidth; 
 
+        //Check if getting out
+        var gettingOutRight = (this.x + this.width >= windowWidth); 
+        var gettingOutLeft = (this.x <= 0); 
+
+        //If getting out change the direction of the movement and set a position to avoid getting out
+        if(gettingOutLeft || gettingOutRight){
+            return true; 
+        }
+
+        return false; 
+    }
 }

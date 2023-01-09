@@ -4,8 +4,9 @@
 
 var canvas; 
 var ctx; 
-var screenWidth = 1080; 
-var screenHeight = 720; 
+var screenWidth = 640; 
+var screenHeight = 480; 
+
 
 //____________________________________________________________________
 //CREATE CANVAS IN SCREEN
@@ -16,8 +17,6 @@ canvas.width = screenWidth;
 canvas.height = screenHeight;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
-
-
 
 //____________________________________________________________________
 //START - Load things the start of the game
@@ -56,21 +55,25 @@ function Update(keysDownArray, modifier, ticks){
 
 	//Check bullet collision with invasors
 	invasorMatrix.invasors.forEach(invasor => {
-		//If bullet collide with an invasor and bullet and invasor are active, destroy both 
 		if(collision(invasor,pBullet) && pBullet.imageReady && invasor.active){
+			//Destroy invasor and bullet
 			invasor.active = false; 
 			pBullet.imageReady = false; 
+
+			//Increase the counter of invasors and increase its speed
 			invasorMatrix.numInvasorsAlive--; 
+			invasorMatrix.invasorsSpeed += invasorMatrix.increaseSpeedFactor; 
+
+			//Increase the score
+			hud.score += invasor.scoreEarned
+			console.log("Score: " + hud.score); 
 		}
 	});
 
 	//Check if there are invasors remaining
 	if(invasorMatrix.numInvasorsAlive <= 0){
-		//End of round
-	}
-
-	//Check if an alien is getting out of screen 
-	
+		invasorMatrix.CreateMatrix(6,6); 
+	}	
 }
 
 
@@ -111,12 +114,14 @@ var then = Date.now();
 var tick = 0; 
 
 //INSTANCES VARS
+var hud = new Hud(); 
+
 var player = new PlayerShip();
 var pBullet = new playerBullet();
 player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
 var alien1 = new Alien(); 	
 
-var invasorMatrix = new InvasorMatrix(4,4,screenWidth,screenHeight); 
+var invasorMatrix = new InvasorMatrix(4,4); 
 
 
 //MAIN GAME LOOP
