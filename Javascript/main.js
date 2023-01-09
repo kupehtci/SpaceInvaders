@@ -1,4 +1,7 @@
 
+//____________________________________________________________________
+//MAIN VARS
+
 var canvas; 
 var ctx; 
 var screenWidth = 1080; 
@@ -50,6 +53,24 @@ function Update(keysDownArray, modifier, ticks){
 	player.Update(keysDownArray,modifier); 
 	pBullet.Update(modifier);
 	invasorMatrix.Update(ticks); 
+
+	//Check bullet collision with invasors
+	invasorMatrix.invasors.forEach(invasor => {
+		//If bullet collide with an invasor and bullet and invasor are active, destroy both 
+		if(collision(invasor,pBullet) && pBullet.imageReady && invasor.active){
+			invasor.active = false; 
+			pBullet.imageReady = false; 
+			invasorMatrix.numInvasorsAlive--; 
+		}
+	});
+
+	//Check if there are invasors remaining
+	if(invasorMatrix.numInvasorsAlive <= 0){
+		//End of round
+	}
+
+	//Check if an alien is getting out of screen 
+	
 }
 
 
