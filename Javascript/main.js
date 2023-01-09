@@ -44,9 +44,12 @@ function Render(){
 	invasorMatrix.Render(); 
 }
 
-function Update(keysDownArray, modifier){
+function Update(keysDownArray, modifier, ticks){
+	
+
 	player.Update(keysDownArray,modifier); 
 	pBullet.Update(modifier);
+	invasorMatrix.Update(ticks); 
 }
 
 
@@ -66,10 +69,12 @@ var main = function () {
 	var now = Date.now();
 	var delta = now - then;
 
-	Update(keysDown, delta / 1000);
+	Update(keysDown, delta / 1000,tick);
 	Render();
 
+	//Update time vars
 	then = now;
+	tick++; 
 
 	// Request to do this again ASAP
 	requestAnimationFrame(main);
@@ -80,8 +85,11 @@ var main = function () {
 var w = window;
 requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame;
 
+//TIME VARS
 var then = Date.now(); 
+var tick = 0; 
 
+//INSTANCES VARS
 var player = new PlayerShip();
 var pBullet = new playerBullet();
 player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position

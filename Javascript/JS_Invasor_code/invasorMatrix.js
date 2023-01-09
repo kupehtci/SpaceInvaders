@@ -50,11 +50,20 @@ class InvasorMatrix{
         });
     }
 
-    Update(){
+    Update(tick){
 
+        //Move the invasors into the new direction
+        var TicksQntBwMovement = 5; 
+        if(tick % TicksQntBwMovement == 0){
+            this.invasors.forEach(invasor => {
+                invasor.SetPosition(invasor.x + 10,invasor.y);
+            });
+        }
     }
 
     InvasorsCollideBorders(){
 
     }
+
+
 }
