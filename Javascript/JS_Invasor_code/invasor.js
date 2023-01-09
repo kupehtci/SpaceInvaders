@@ -18,6 +18,7 @@ class Alien{
 
             this.sprite = image;        //Assign the image to the var sprite and set ready 
             this.imageReady = true; 
+            console.log("Created alien"); 
         }
         image.src = "./Assets/alien1.1.png"; 
     }
@@ -37,7 +38,6 @@ class Alien{
      */
     Render(){
         if(this.imageReady){
-            console.log("Player render"); 
             ctx.drawImage(this.sprite,this.x,this.y,this.width * this.scale,this.height * this.scale); 
         }
     }

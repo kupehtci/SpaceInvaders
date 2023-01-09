@@ -46,9 +46,7 @@ class playerBullet{
 
     Render(){
         
-        if(this.imageReady){
-
-            console.log("PlayerBullet render"); 
+        if(this.imageReady){ 
             ctx.drawImage(this.sprite,this.x,this.y,this.width * this.scale,this.height * this.scale); 
         }
     }

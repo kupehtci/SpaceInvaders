@@ -10,8 +10,7 @@ class InvasorMatrix{
      * @param {int} screenHeight Height of the screen for calculating aliens position and checking when invasors has reached earth and loose game
      */
     constructor(numColumns,numRows,screenWidth,screenHeight){
-        if(typeof(numColumns) != "number"){console.log("Incorrect number of columns")}
-        
+                
         //Position vars
         this.sepLeft = 20; 
         this.sepTop = 20; 
@@ -21,7 +20,7 @@ class InvasorMatrix{
         //Create all the invasors
         this.invasors = [];
         for(var i = 0; i < numRows; i++){
-            for(var j = 0; j < numColumns; i++){
+            for(var j = 0; j < numColumns; j++){
                 let index = (numColumns * i + j); 
                 this.invasors[index] = new Alien();
 
@@ -30,6 +29,8 @@ class InvasorMatrix{
                 this.invasors[index].SetPosition(invasorPosX,invasorPosY); 
             }
         }
+
+        //Vars for invasors movement
         
     }
 
@@ -39,6 +40,7 @@ class InvasorMatrix{
     Render(){
         this.invasors.forEach(invasor => {
             if(invasor.imageReady){
+                console.log("Invasor render"); 
                 invasor.Render(); 
             }
         });

@@ -12,6 +12,8 @@ canvas.height = 720;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
+
+
 //____________________________________________________________________
 //START - Load things the start of the game
 function Start(){
@@ -28,7 +30,6 @@ function Reset(){
 function Render(){
 	
 	//Render a Background with colour Black aa
-	console.log("Background black"); 
 	ctx.fillStyle = "black"; 
 	ctx.fillRect(0,0,canvas.width,canvas.height); 
 
@@ -38,6 +39,7 @@ function Render(){
 	//Render the bullet
 	pBullet.Render();
 
+	invasorMatrix.Render(); 
 }
 
 function Update(keysDownArray, modifier){
@@ -82,6 +84,9 @@ var player = new PlayerShip();
 var pBullet = new playerBullet();
 player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
 var alien1 = new Alien(); 	
+
+var invasorMatrix = new InvasorMatrix(4,4,canvas.width,canvas.height); 
+
 
 //MAIN GAME LOOP
 Reset(); 

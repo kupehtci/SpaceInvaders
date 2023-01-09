@@ -38,9 +38,7 @@ class PlayerShip{
     //Render the object
     Render(){
         
-        if(this.imageReady){
-
-            console.log("Player render"); 
+        if(this.imageReady){ 
             ctx.drawImage(this.sprite,this.x,this.y,this.width * this.scale,this.height * this.scale); 
         }
     }
