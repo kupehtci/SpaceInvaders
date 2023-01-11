@@ -4,7 +4,7 @@ class PlayerShip{
         //VARS FOR MOVEMENT
         this.x = canvas.width/2; 
         
-        this.y = canvas.height * 5/6; 
+        this.y = canvas.height * 11/12; 
         this.speedX = 0; 
         this.speedY = 0; 
         this.speed = 300; 

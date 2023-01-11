@@ -3,7 +3,7 @@ class playerBullet{
     constructor(){
         this.x = 0; 
         this.y = 0; 
-        this.speedY = 800;
+        this.speedY = 450;
 
         //LOAD IMAGE AND IMAGE VARS
         this.imageReady = false; 

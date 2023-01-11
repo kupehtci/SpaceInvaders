@@ -80,16 +80,27 @@ class InvasorMatrix{
 
         
         //A random invasor at the down line shoots each X ticks 
-        if(tick % 30 == 0){
+        if(tick % 70 == 10){
             this.ShootInvaderBellow(); 
         }
     }
 
+    /**
+     * Create a matrix of aliens
+     * @param {number} numColumns 
+     * @param {number} numRows 
+     */
     CreateMatrix(numColumns, numRows){
         for(let i = 0; i < numRows; i++){
             for(let j = 0; j < numColumns; j++){
+
                 let index = ((numColumns * i) + j); 
-                this.invasors[index] = new Alien();
+                
+                //Create different aliens depending on the line
+                if(i == 0) {this.invasors[index] = new Alien(2);}
+                else if(i == 1 || i == 2){this.invasors[index] = new Alien(3);}
+                else if(i == 3 || i == 4){this.invasors[index] = new Alien(1);}
+                else{this.invasors[index] = new Alien(1);}
 
                 let invasorPosX = this.sepLeft + (j * this.sepWide); 
                 let invasorPosY = this.sepTop + (i * this.sepTall);

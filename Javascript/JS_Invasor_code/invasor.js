@@ -1,6 +1,6 @@
 
 class Alien{
-    constructor(){
+    constructor(invasorType){
         //VARS FOR MOVEMENT
         this.x = 0; 
         this.y = 0; 
@@ -23,7 +23,7 @@ class Alien{
             this.sprite[0] = image1;        //Assign the image to the var sprite and set ready
             this.imageReady = true; 
         }
-        image1.src = "./Assets/alien1.1.png";
+        
         
         //LOAD IMAGE AND IMAGE VARS 2
         var image2 = new Image();   
@@ -34,12 +34,32 @@ class Alien{
             this.sprite[1] = image2;        //Assign the image to the var sprite and set ready 
             this.imageReady = true; 
         }
-        image2.src = "./Assets/alien1.2.png";
+        
+        this.scoreEarned = 0; 
 
+        switch (invasorType) {
+            case 1:
+                image1.src = "./Assets/alien1.1.png";
+                image2.src = "./Assets/alien1.2.png";
+                this.scoreEarned = 10; 
+                break;
+            case 2: 
+                image1.src = "./Assets/alien2.1.png";
+                image2.src = "./Assets/alien2.2.png";
+                this.scoreEarned = 30; 
+                break; 
+            case 3: 
+                image1.src = "./Assets/alien3.1.png";
+                image2.src = "./Assets/alien3.2.png";
+                this.scoreEarned = 20; 
+                break; 
+            default:
+                break;
+        }
         
         //Destroy vars
         this.active = true; 
-        this.scoreEarned = 10; 
+        
     }
 
     /**
@@ -89,6 +109,7 @@ class Alien{
 
     Shoot(){
         console.log("Alien shooted shoot"); 
-        this.NextSprite(); 
+        invasorBullet.SetPosition(this.x + this.width/2, this.y);
+        invasorBullet.imageReady = true; 
     }
 }

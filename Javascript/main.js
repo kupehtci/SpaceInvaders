@@ -5,7 +5,7 @@
 var canvas; 
 var ctx; 
 var screenWidth = 640; 
-var screenHeight = 480; 
+var screenHeight = 500; 
 
 
 //____________________________________________________________________
@@ -48,8 +48,9 @@ function Render(){
 	//Render the player
 	player.Render(); 
 
-	//Render the bullet
+	//Render the bullets
 	pBullet.Render();
+	invasorBullet.Render();
 
 	invasorMatrix.Render(); 
 
@@ -66,6 +67,7 @@ function Update(keysDownArray, modifier, ticks){
 
 	player.Update(keysDownArray,modifier); 
 	pBullet.Update(modifier);
+	invasorBullet.Update(modifier);
 	invasorMatrix.Update(ticks); 
 
 	//Check bullet collision with invasors
@@ -85,34 +87,6 @@ function Update(keysDownArray, modifier, ticks){
 		}
 	});
 
-	//Check bullet collision with barriers
-	// //check collisions with player bullet for shield1
-	// for (var i = 0; i < shield[0].barrierBlocks.length; i++)
-	// {
-	// 	if(collision(pBullet, shield1.barrierBlocks[i]) == true)
-	// 	{
-	// 		shield1.barrierBlocks.splice(i, 1);
-	// 		pBullet.imageReady = false;
-	// 	}
-	// }
-	// //check collisions with player bullet for shield2
-	// for (var i = 0; i < shield[1].barrierBlocks.length; i++)
-	// {
-	// 	if(collision(pBullet, shield2.barrierBlocks[i]) == true)
-	// 	{
-	// 		shield2.barrierBlocks.splice(i, 1);
-	// 		pBullet.imageReady = false;
-	// 	}
-	// }
-	// //check collisions with player bullet for shield3
-	// for (var i = 0; i < shield[2].barrierBlocks.length; i++)
-	// {
-	// 	if(collision(pBullet, shield[2].barrierBlocks[i]) == true)
-	// 	{
-	// 		shield3.barrierBlocks.splice(i, 1);
-	// 		pBullet.imageReady = false;
-	// 	}
-	// }
 
 	//Check bullet collision with barriers
 	for(var i = 0; i < barriers.length; i++){
@@ -123,6 +97,10 @@ function Update(keysDownArray, modifier, ticks){
 
 				barriers[i].barrierBlocks.splice(j,1); 
 				pBullet.imageReady = false; 
+			}
+			if(collision(invasorBullet,barriers[i].barrierBlocks[j])){
+				barriers[i].barrierBlocks.splice(j,1); 
+				invasorBullet.imageReady = false; 
 			}
 		}
 	}
@@ -188,6 +166,7 @@ barriers[0] = new fullBarrier((canvas.width/4)-50, 3*canvas.height/4);
 barriers[1] = new fullBarrier(canvas.width/2, 3*canvas.height/4);
 barriers[2] = new fullBarrier((3*canvas.width/4)+50, 3*canvas.height/4);
 
+var invasorBullet = new InvasorBullet();
 var invasorMatrix = new InvasorMatrix(11,5); 
 
 

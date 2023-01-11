@@ -1,15 +1,15 @@
 
-class invasorBullet{
+class InvasorBullet{
     constructor(){
         this.x = 0; 
         this.y = 0; 
-        this.speedY = -800;
+        this.speedY = -410;
 
         //LOAD IMAGE AND IMAGE VARS
         this.imageReady = false; 
         var image = new Image(); 
 
-        this.scale = 4; 
+        this.scale = 3; 
 
         image.onload  = () => {
             this.height = image.height * this.scale; 
@@ -19,7 +19,7 @@ class invasorBullet{
             this.imageReady = false; 
         }
 
-        image.src = "./Assets/alienBullet1.png"; 
+        image.src = "./Assets/alienBullet2.png";
     }
     Update (modifier)
     {
@@ -52,10 +52,25 @@ class invasorBullet{
     }
 
     Render(){
-        
         if(this.imageReady){ 
             ctx.drawImage(this.sprite,this.x,this.y,this.width,this.height); 
         }
     }
 
+    /**
+     * Check collision with another object
+     * @param {Object} obj1 object to check the collition with
+     */
+    CollisionWith(obj1){
+        if(this.active){
+            return collision(this,obj1);
+        }
+        else{
+            return false; 
+        }
+    }
+    SetPosition(newX,newY){
+        this.x = newX; 
+        this.y = newY;
+    }
 }
