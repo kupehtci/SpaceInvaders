@@ -88,6 +88,7 @@ class Alien{
     }
 
     Shoot(){
-        console.log("shoot"); 
+        console.log("Alien shooted shoot"); 
+        this.NextSprite(); 
     }
 }

@@ -1,9 +1,9 @@
 
-class playerBullet{
+class invasorBullet{
     constructor(){
         this.x = 0; 
         this.y = 0; 
-        this.speedY = 800;
+        this.speedY = -800;
 
         //LOAD IMAGE AND IMAGE VARS
         this.imageReady = false; 
@@ -19,7 +19,7 @@ class playerBullet{
             this.imageReady = false; 
         }
 
-        image.src = "./Assets/playerBullet.png"; 
+        image.src = "./Assets/alienBullet1.png"; 
     }
     Update (modifier)
     {

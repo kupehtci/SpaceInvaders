@@ -19,6 +19,12 @@ class InvasorMatrix{
         this.invasors = [];
         /** Count the number of invaders remaining*/
         this.numInvasorsAlive = 0; 
+
+        //Store matrix parameters 
+        this.numColumns = numColumns;
+        this.numRows = numRows;
+
+        //Create the matrix 
         this.CreateMatrix(numColumns,numRows);
         
         
@@ -90,16 +96,33 @@ class InvasorMatrix{
                 this.invasors[index].SetPosition(invasorPosX,invasorPosY); 
             }
         }
+        //Store how many invasors exists initially
         this.numInvasorsAlive = (numRows * numColumns);
+
+        //Update number of columns and rows
+        this.numColumns = numColumns;
+        this.numRows = numRows;
     }
 
     ShootInvaderBellow(){
-        const invasorsAlive = this.invasors.filter(invader => invader.active); 
+        //Generate a random number for choosing a column
+        let randomColumn = Math.floor(Math.random() * this.numColumns);
 
-        /**Generate a random number that select one of the remaining Invaders */
-        let randomNumber = Math.floor(Math.random * invasorsAlive.length); 
-
-        //invasorsAlive[randomNumber].Shoot(); 
+        //Check if there is an invasor in the column
+        let i = randomColumn;
+        let invasorDownColumn = this.invasors[i]; 
+        
+        while(this.invasors[i].active && (i+this.numColumns) < this.invasors.length && this.invasors[i + this.numColumns].active){
+            i += this.numColumns; 
+            invasorDownColumn = this.invasors[i]; 
+        }
+        if(invasorDownColumn.active == false){
+            return; 
+        }
+        else{
+            invasorDownColumn.Shoot(); 
+        }
+            
     }
 
     ChangeInvadersSprite(){

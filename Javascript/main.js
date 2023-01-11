@@ -54,6 +54,11 @@ function Render(){
 	invasorMatrix.Render(); 
 
 	hud.Render(ctx,player); 
+
+	//Render the barriers
+	barriers.forEach(barrier => {
+		barrier.Render(); 
+	});
 }
 
 function Update(keysDownArray, modifier, ticks){
@@ -80,6 +85,48 @@ function Update(keysDownArray, modifier, ticks){
 		}
 	});
 
+	//Check bullet collision with barriers
+	// //check collisions with player bullet for shield1
+	// for (var i = 0; i < shield[0].barrierBlocks.length; i++)
+	// {
+	// 	if(collision(pBullet, shield1.barrierBlocks[i]) == true)
+	// 	{
+	// 		shield1.barrierBlocks.splice(i, 1);
+	// 		pBullet.imageReady = false;
+	// 	}
+	// }
+	// //check collisions with player bullet for shield2
+	// for (var i = 0; i < shield[1].barrierBlocks.length; i++)
+	// {
+	// 	if(collision(pBullet, shield2.barrierBlocks[i]) == true)
+	// 	{
+	// 		shield2.barrierBlocks.splice(i, 1);
+	// 		pBullet.imageReady = false;
+	// 	}
+	// }
+	// //check collisions with player bullet for shield3
+	// for (var i = 0; i < shield[2].barrierBlocks.length; i++)
+	// {
+	// 	if(collision(pBullet, shield[2].barrierBlocks[i]) == true)
+	// 	{
+	// 		shield3.barrierBlocks.splice(i, 1);
+	// 		pBullet.imageReady = false;
+	// 	}
+	// }
+
+	//Check bullet collision with barriers
+	for(var i = 0; i < barriers.length; i++){
+
+		for(var j = 0; j < barriers[i].barrierBlocks.length; j++){
+
+			if(collision(pBullet,barriers[i].barrierBlocks[j])){
+
+				barriers[i].barrierBlocks.splice(j,1); 
+				pBullet.imageReady = false; 
+			}
+		}
+	}
+
 	//Check if there are invasors remaining
 	if(invasorMatrix.numInvasorsAlive <= 0){
 		invasorMatrix.CreateMatrix(11,5); 
@@ -97,8 +144,8 @@ function Update(keysDownArray, modifier, ticks){
 //CHECK THE INPUTS
 var keysDown = {}; 
 addEventListener("keydown",function(e){
-	keysDown[e.keyCode] = true;}, 
-	false); 
+	keysDown[e.keyCode] = true;
+}, false); 
 addEventListener("keyup",function(e){
 	delete keysDown[e.keyCode];}, 
 	false);  
@@ -134,7 +181,12 @@ var tick = 0;
 var hud = new Hud(); 
 var player = new PlayerShip();
 var pBullet = new playerBullet();
-var alien1 = new Alien(); 	
+var alien1 = new Alien(); 
+
+var barriers = []; 
+barriers[0] = new fullBarrier((canvas.width/4)-50, 3*canvas.height/4);
+barriers[1] = new fullBarrier(canvas.width/2, 3*canvas.height/4);
+barriers[2] = new fullBarrier((3*canvas.width/4)+50, 3*canvas.height/4);
 
 var invasorMatrix = new InvasorMatrix(11,5); 
 
