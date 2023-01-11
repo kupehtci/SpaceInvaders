@@ -56,23 +56,25 @@ class InvasorMatrix{
                 invasor.SetPosition(invasor.x + (this.invasorsSpeed * this.direction),invasor.y);
             });
         }
+
+        //Change the sprite of the invasors at specific ticks
+        if(tick % 30 == 0){
+            this.ChangeInvadersSprite();
+        }
         
-        //Check if sides of the matrix has collisioned with the screen border
+        //If sides of the matrix has collisioned with the screen border, go a level down
         this.invasors.forEach(invasor => {
             if(invasor.active && invasor.CheckBorders()){
-                goDown = true; 
+                this.direction = this.direction * -1;
+                this.invasors.forEach(invasor => {
+                    invasor.SetPosition(invasor.x + (this.invasorsSpeed * this.direction),invasor.y + this.dispDown); 
+                }); 
             }
         }); 
-        //Go a row down and change direction of movement
-        if(goDown == true){
-            this.direction = this.direction * -1;
-            this.invasors.forEach(invasor => {
-                invasor.SetPosition(invasor.x + (this.invasorsSpeed * this.direction),invasor.y + this.dispDown); 
-            }); 
-            goDown = false; 
-        }
 
-        if(tick % 10 == 0){
+        
+        //A random invasor at the down line shoots each X ticks 
+        if(tick % 30 == 0){
             this.ShootInvaderBellow(); 
         }
     }
@@ -98,5 +100,11 @@ class InvasorMatrix{
         let randomNumber = Math.floor(Math.random * invasorsAlive.length); 
 
         //invasorsAlive[randomNumber].Shoot(); 
+    }
+
+    ChangeInvadersSprite(){
+        this.invasors.forEach(invasor => {
+            invasor.NextSprite(); 
+        });
     }
 }

@@ -2,8 +2,9 @@
 class PlayerShip{
     constructor(){
         //VARS FOR MOVEMENT
-        this.x = 40; 
-        this.y = 100; 
+        this.x = canvas.width/2; 
+        //player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
+        this.y = canvas.height * 5/6; 
         this.speedX = 0; 
         this.speedY = 0; 
         this.speed = 300; 
@@ -27,6 +28,8 @@ class PlayerShip{
         //VARS FOR SHOOTING
         this.zeroBullets = true;
 
+        //VARS FOR LIVES 
+        this.lives = 3; 
     }
 
     //Set position of the PlayerShip
@@ -59,6 +62,7 @@ class PlayerShip{
         if(32 in l_keysDown){
             this.Shoot();
         }
+
         //if bullet image is hidden means you can fire again
         if (pBullet.imageReady == false){
             this.zeroBullets = true;
@@ -95,6 +99,7 @@ class PlayerShip{
         }
     }
 
+    //Shoot a bullet
     Shoot()
     {
 
@@ -106,5 +111,14 @@ class PlayerShip{
             pBullet.y = this.y-30;
         }
         
+        
+    }
+
+    //Check if the player is dead
+    isDead(){
+        if(this.lives <= 0){
+            return true; 
+        }
+        return false;
     }
 }

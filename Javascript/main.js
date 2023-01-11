@@ -4,7 +4,7 @@
 
 var canvas; 
 var ctx; 
-var screenWidth = 480; 
+var screenWidth = 640; 
 var screenHeight = 480; 
 
 
@@ -26,7 +26,15 @@ function Start(){
 //____________________________________________________________________
 //RESET THE GAME
 function Reset(){
-	console.log("reset"); 
+	console.log("Reset Game"); 
+}
+
+//____________________________________________________________________
+//GAMEOVER
+function GameOver(){
+	console.log("Game Over"); 
+	//reload webpage
+	window.location.reload();
 }
 
 //____________________________________________________________________
@@ -45,7 +53,7 @@ function Render(){
 
 	invasorMatrix.Render(); 
 
-	hud.Render(ctx); 
+	hud.Render(ctx,player); 
 }
 
 function Update(keysDownArray, modifier, ticks){
@@ -77,6 +85,10 @@ function Update(keysDownArray, modifier, ticks){
 		invasorMatrix.CreateMatrix(11,5); 
 	}	
 
+	//Check if the player is dead
+	if(player.isDead()){
+		GameOver();
+	}
 	
 }
 
@@ -118,11 +130,10 @@ var then = Date.now();
 var tick = 0; 
 
 //INSTANCES VARS
-var hud = new Hud(); 
 
+var hud = new Hud(); 
 var player = new PlayerShip();
 var pBullet = new playerBullet();
-player.SetPosition(canvas.width/2,canvas.height * 5/6); 	//set player initial position
 var alien1 = new Alien(); 	
 
 var invasorMatrix = new InvasorMatrix(11,5); 
