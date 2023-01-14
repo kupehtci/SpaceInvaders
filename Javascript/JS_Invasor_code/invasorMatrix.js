@@ -38,7 +38,8 @@ class InvasorMatrix{
         /**Define the invasors speed that increases when dificulty increases */
         this.invasorsSpeed = 0.3; 
         /**Factor that increments the speed when an invasor dies */
-        this.increaseSpeedFactor = 0.07; 
+        this.increaseSpeedFactor = 0.12; 
+        this.lastInvasorSpeedIncrement = 6;
     }
 
     /**

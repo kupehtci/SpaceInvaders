@@ -32,7 +32,8 @@ function Reset(){
 //____________________________________________________________________
 //GAMEOVER
 function GameOver(){
-	console.log("Game Over"); 
+	console.log("Game Over");
+	alert("Game Over\nClose To Restart") 
 	//reload webpage
 	window.location.reload();
 }
@@ -87,6 +88,20 @@ function Update(keysDownArray, modifier, ticks){
 		}
 	});
 
+	//Check invaderBullet collision with player
+	if(collision(player, invasorBullet) && invasorBullet.imageReady){
+			
+		//Destroy bullet and take out player life
+		invasorBullet.imageReady = false; 
+		player.lives--; 
+	}
+
+	//Check invaderBullet collision with playerBullet
+	if(collision(invasorBullet,pBullet) && pBullet.imageReady && invasorBullet.imageReady){
+			//Destroy invasorBullet and playerBullet
+			invasorBullet.imageReady = false; 
+			pBullet.imageReady = false; 
+		}
 
 	//Check bullet collision with barriers
 	for(var i = 0; i < barriers.length; i++){
@@ -108,7 +123,12 @@ function Update(keysDownArray, modifier, ticks){
 	//Check if there are invasors remaining
 	if(invasorMatrix.numInvasorsAlive <= 0){
 		invasorMatrix.CreateMatrix(11,5); 
-	}	
+	}
+	//Increase a lot the speed of the last invader
+	if (invasorMatrix.numInvasorsAlive == 1 && lastInvaderSpeedIncremented == false){
+		invasorMatrix.invasorsSpeed += invasorMatrix.lastInvasorSpeedIncrement;
+		lastInvaderSpeedIncremented = true;
+	}
 
 	//Check if the player is dead
 	if(player.isDead()){
@@ -153,6 +173,9 @@ requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame
 //TIME VARS
 var then = Date.now(); 
 var tick = 0; 
+
+//LAST INVADER CONTROL VAR
+var lastInvaderSpeedIncremented = false;
 
 //INSTANCES VARS
 
