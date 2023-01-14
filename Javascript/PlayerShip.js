@@ -30,7 +30,7 @@ class PlayerShip{
         this.enableShoot = true; 
 
         //VARS FOR LIVES 
-        this.lives = 3; 
+        this.lives = 1; 
     }
 
     //Set position of the PlayerShip
@@ -42,7 +42,7 @@ class PlayerShip{
     //Render the object
     Render(){
         
-        if(this.imageReady){ 
+        if(this.imageReady && this.lives > 0){ 
             ctx.drawImage(this.sprite,this.x,this.y,this.width,this.height); 
         }
     }

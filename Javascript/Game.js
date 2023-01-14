@@ -27,7 +27,7 @@ const bulletClash = new Audio("sounds/hitmarker.wav");
 const bulletBlocked = new Audio("sounds/ping gun.wav");
 
 //___________________________________________________________________
-
+//EMPTY
 
 
 //____________________________________________________________________
@@ -44,11 +44,31 @@ function Reset(){
 //____________________________________________________________________
 //GAMEOVER
 function GameOver(){
-	console.log("Game Over");
-	alert("Game Over\nClose To Restart") 
+	//Show game over text in red in the middle of the screen
+	ctx.fillStyle = "red";
+	ctx.font = "50px Arial";
+	ctx.textAlign = "center";
+	ctx.fillText("GAME OVER", screenWidth/2,screenHeight/2); 
 	//reload webpage
-	window.location.reload();
+	setTimeout(() => {Restart();}, 3000); 
 }
+
+//____________________________________________________________________
+//RESTART THE GAME
+function Restart(){
+
+	//Restart all the variables
+	hud = new Hud(); 
+	player = new PlayerShip();
+	pBullet = new playerBullet();
+
+	barriers[0] = new fullBarrier((canvas.width/4)-50, 3*canvas.height/4);
+	barriers[1] = new fullBarrier(canvas.width/2, 3*canvas.height/4);
+	barriers[2] = new fullBarrier((3*canvas.width/4)+50, 3*canvas.height/4);
+
+	invasorBullet = new InvasorBullet();
+	invasorMatrix = new InvasorMatrix(11,5); 
+} 
 
 //____________________________________________________________________
 //RENDER THE GAME
@@ -60,7 +80,6 @@ function Render(){
 
 	//Render the player
 	player.Render(); 
-
 	//Render the bullets
 	pBullet.Render();
 	invasorBullet.Render();
@@ -111,7 +130,7 @@ function Update(keysDownArray, modifier, ticks){
 	});
 
 	//Check invaderBullet collision with player
-	if(collision(player, invasorBullet) && invasorBullet.imageReady){
+	if(collision(player, invasorBullet) && invasorBullet.imageReady && player.lives > 0){
 		gameLoose.currentTime = 0;
     	gameLoose.play();
 		//Destroy bullet and take out player life
@@ -126,6 +145,11 @@ function Update(keysDownArray, modifier, ticks){
 			//Destroy invasorBullet and playerBullet
 			invasorBullet.imageReady = false; 
 			pBullet.imageReady = false; 
+
+			//Check if the player is dead
+			if(player.isDead()){
+				GameOver();
+			}
 		}
 
 	//Check bullet collision with barriers
@@ -162,10 +186,7 @@ function Update(keysDownArray, modifier, ticks){
 		lastInvaderSpeedIncremented = true;
 	}
 
-	//Check if the player is dead
-	if(player.isDead()){
-		GameOver();
-	}
+	
 	
 }
 
@@ -214,7 +235,6 @@ var lastInvaderSpeedIncremented = false;
 var hud = new Hud(); 
 var player = new PlayerShip();
 var pBullet = new playerBullet();
-var alien1 = new Alien(); 
 
 var barriers = []; 
 barriers[0] = new fullBarrier((canvas.width/4)-50, 3*canvas.height/4);
