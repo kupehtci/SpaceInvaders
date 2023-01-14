@@ -1,4 +1,4 @@
-
+const shootPlayer = new Audio("sounds/laserPlayer.wav");
 class PlayerShip{
     constructor(){
         //VARS FOR MOVEMENT
@@ -112,6 +112,8 @@ class PlayerShip{
     {
         if (this.zeroBullets == true)//there can only be one player bullet at a time
         {
+            shootPlayer.currentTime = 0;
+            shootPlayer.play();
             this.zeroBullets = false;
             pBullet.imageReady = true;
             pBullet.x = this.x + (this.width/2) - 5;

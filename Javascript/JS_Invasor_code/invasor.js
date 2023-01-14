@@ -1,4 +1,4 @@
-
+const shootSound = new Audio("sounds/laser.wav");
 class Alien{
     constructor(invasorType){
         //VARS FOR MOVEMENT
@@ -108,8 +108,11 @@ class Alien{
     }
 
     Shoot(){
+        shootSound.currentTime = 0;
+        shootSound.play();
         console.log("Alien shooted shoot"); 
         invasorBullet.SetPosition(this.x + this.width/2, this.y);
-        invasorBullet.imageReady = true; 
+        invasorBullet.imageReady = true;
+
     }
 }

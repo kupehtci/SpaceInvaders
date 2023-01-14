@@ -18,6 +18,18 @@ canvas.height = screenHeight;
 
 document.body.appendChild(canvas);      //Create the canvas in the HTML document
 
+//___________________________________________________________________
+//SOUNDS
+const enemyDeathSound = new Audio("sounds/deathscream.wav");
+const gameLoose = new Audio("sounds/explosion.wav");
+const gameWin = new Audio("sounds/win.wav");
+const bulletClash = new Audio("sounds/hitmarker.wav");
+const bulletBlocked = new Audio("sounds/ping gun.wav");
+
+//___________________________________________________________________
+
+
+
 //____________________________________________________________________
 //START - Load things the start of the game
 function Start(){
@@ -71,9 +83,19 @@ function Update(keysDownArray, modifier, ticks){
 	invasorBullet.Update(modifier);
 	invasorMatrix.Update(ticks); 
 
+	//Check player collision with invasor
+	invasorMatrix.invasors.forEach(invasor => {
+		if(collision(invasor,player) && invasor.active){
+			gameLoose.currentTime = 0;
+    		gameLoose.play();
+			player.lives--;
+		}
+	});
 	//Check bullet collision with invasors
 	invasorMatrix.invasors.forEach(invasor => {
 		if(collision(invasor,pBullet) && pBullet.imageReady && invasor.active){
+			enemyDeathSound.currentTime = 0;
+    		enemyDeathSound.play();
 			//Destroy invasor and bullet
 			invasor.active = false; 
 			pBullet.imageReady = false; 
@@ -90,7 +112,8 @@ function Update(keysDownArray, modifier, ticks){
 
 	//Check invaderBullet collision with player
 	if(collision(player, invasorBullet) && invasorBullet.imageReady){
-			
+		gameLoose.currentTime = 0;
+    	gameLoose.play();
 		//Destroy bullet and take out player life
 		invasorBullet.imageReady = false; 
 		player.lives--; 
@@ -98,6 +121,8 @@ function Update(keysDownArray, modifier, ticks){
 
 	//Check invaderBullet collision with playerBullet
 	if(collision(invasorBullet,pBullet) && pBullet.imageReady && invasorBullet.imageReady){
+			bulletClash.currentTime = 0;
+    		bulletClash.play();
 			//Destroy invasorBullet and playerBullet
 			invasorBullet.imageReady = false; 
 			pBullet.imageReady = false; 
@@ -109,11 +134,14 @@ function Update(keysDownArray, modifier, ticks){
 		for(var j = 0; j < barriers[i].barrierBlocks.length; j++){
 
 			if(collision(pBullet,barriers[i].barrierBlocks[j])){
-
+				bulletBlocked.currentTime = 0;
+    			bulletBlocked.play();
 				barriers[i].barrierBlocks.splice(j,1); 
 				pBullet.imageReady = false; 
 			}
 			if(collision(invasorBullet,barriers[i].barrierBlocks[j])){
+				bulletBlocked.currentTime = 0;
+    			bulletBlocked.play();
 				barriers[i].barrierBlocks.splice(j,1); 
 				invasorBullet.imageReady = false; 
 			}
@@ -122,7 +150,11 @@ function Update(keysDownArray, modifier, ticks){
 
 	//Check if there are invasors remaining
 	if(invasorMatrix.numInvasorsAlive <= 0){
+		gameWin.currentTime = 0;
+        gameWin.play();
+		invasorMatrix.invasorsSpeed -= invasorMatrix.lastInvasorSpeedIncrement;
 		invasorMatrix.CreateMatrix(11,5); 
+		lastInvaderSpeedIncremented = false;
 	}
 	//Increase a lot the speed of the last invader
 	if (invasorMatrix.numInvasorsAlive == 1 && lastInvaderSpeedIncremented == false){
@@ -191,6 +223,7 @@ barriers[2] = new fullBarrier((3*canvas.width/4)+50, 3*canvas.height/4);
 
 var invasorBullet = new InvasorBullet();
 var invasorMatrix = new InvasorMatrix(11,5); 
+
 
 
 //MAIN GAME LOOP
