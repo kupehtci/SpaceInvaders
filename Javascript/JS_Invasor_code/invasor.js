@@ -13,7 +13,7 @@ class Alien{
         //LOAD IMAGE AND IMAGE VARS 1
         this.imageReady = false; 
         this.spriteIndex = 0; 
-        this.sprite = [3]; 
+        this.sprite = [2]; 
 
         var image1 = new Image(); 
         image1.onload = () => {

@@ -30,7 +30,7 @@ class PlayerShip{
         this.enableShoot = true; 
 
         //VARS FOR LIVES 
-        this.lives = 1; 
+        this.lives = 3; 
     }
 
     //Set position of the PlayerShip
