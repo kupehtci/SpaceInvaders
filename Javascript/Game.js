@@ -4,8 +4,10 @@
 
 var canvas; 
 var ctx; 
-var screenWidth = 640; 
-var screenHeight = 500; 
+// var screenWidth = 640; 
+// var screenHeight = 500; 
+var screenWidth = 720; 
+var screenHeight = 840; 
 
 
 //____________________________________________________________________
@@ -42,32 +44,27 @@ function Reset(){
 }
 
 //____________________________________________________________________
-//GAMEOVER
-function GameOver(){
-	//Show game over text in red in the middle of the screen
-	ctx.fillStyle = "red";
-	ctx.font = "50px Arial";
-	ctx.textAlign = "center";
-	ctx.fillText("GAME OVER", screenWidth/2,screenHeight/2); 
-	//reload webpage
-	setTimeout(() => {Restart();}, 3000); 
-}
-
-//____________________________________________________________________
 //RESTART THE GAME
 function Restart(){
 
 	//Restart all the variables
-	hud = new Hud(); 
-	player = new PlayerShip();
-	pBullet = new playerBullet();
+	hud.score = 0;
+	hud.GameOverShutDown();  
+
+	player = new PlayerShip(); 
+	pBullet.imageReady = false; 
 
 	barriers[0] = new fullBarrier((canvas.width/4)-50, 3*canvas.height/4);
 	barriers[1] = new fullBarrier(canvas.width/2, 3*canvas.height/4);
 	barriers[2] = new fullBarrier((3*canvas.width/4)+50, 3*canvas.height/4);
 
-	invasorBullet = new InvasorBullet();
-	invasorMatrix = new InvasorMatrix(11,5); 
+	invasorBullet.imageReady = false; 
+	invasorMatrix.ClearMatrix(); 
+	invasorMatrix.CreateMatrix(11,5); 
+
+	//Reset time vars
+	tick = 0; 
+	then = Date.now();
 } 
 
 //____________________________________________________________________
@@ -86,12 +83,15 @@ function Render(){
 
 	invasorMatrix.Render(); 
 
-	hud.Render(ctx,player); 
+
 
 	//Render the barriers
 	barriers.forEach(barrier => {
 		barrier.Render(); 
 	});
+
+	//Render the HUD that contain the lives and the score
+	hud.Render(ctx,player); 
 }
 
 function Update(keysDownArray, modifier, ticks){
@@ -110,6 +110,7 @@ function Update(keysDownArray, modifier, ticks){
 			player.lives--;
 		}
 	});
+
 	//Check bullet collision with invasors
 	invasorMatrix.invasors.forEach(invasor => {
 		if(collision(invasor,pBullet) && pBullet.imageReady && invasor.active){
@@ -136,6 +137,11 @@ function Update(keysDownArray, modifier, ticks){
 		//Destroy bullet and take out player life
 		invasorBullet.imageReady = false; 
 		player.lives--; 
+
+		//Check if the player is dead
+		if(player.isDead()){
+			hud.GameOver();
+		}	
 	}
 
 	//Check invaderBullet collision with playerBullet
@@ -145,11 +151,7 @@ function Update(keysDownArray, modifier, ticks){
 			//Destroy invasorBullet and playerBullet
 			invasorBullet.imageReady = false; 
 			pBullet.imageReady = false; 
-
-			//Check if the player is dead
-			if(player.isDead()){
-				GameOver();
-			}
+			console.log("Collision bw bullets")
 		}
 
 	//Check bullet collision with barriers
@@ -157,10 +159,10 @@ function Update(keysDownArray, modifier, ticks){
 
 		for(var j = 0; j < barriers[i].barrierBlocks.length; j++){
 
-			if(collision(pBullet,barriers[i].barrierBlocks[j])){
+			if(collision(pBullet,barriers[i]?.barrierBlocks[j])){
 				bulletBlocked.currentTime = 0;
     			bulletBlocked.play();
-				barriers[i].barrierBlocks.splice(j,1); 
+				barriers[i]?.barrierBlocks?.splice(j,1); 
 				pBullet.imageReady = false; 
 			}
 			if(collision(invasorBullet,barriers[i].barrierBlocks[j])){
@@ -186,6 +188,10 @@ function Update(keysDownArray, modifier, ticks){
 		lastInvaderSpeedIncremented = true;
 	}
 
+	//If player dies, game over
+	if(player.isDead()){
+		hud.GameOver();
+	}
 	
 	
 }
@@ -200,6 +206,13 @@ addEventListener("keydown",function(e){
 addEventListener("keyup",function(e){
 	delete keysDown[e.keyCode];}, 
 	false);  
+
+//if click enter restart the game
+addEventListener("keydown",function(e){
+	if(e.keyCode == 13 && hud.gameOverActive){
+		Restart(); 
+	}
+}, false);
 
 //____________________________________________________________________
 // THE MAIN GAME LOOP

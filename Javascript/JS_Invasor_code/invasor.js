@@ -77,7 +77,6 @@ class Alien{
      */
     Render(){
         if(this.imageReady && this.active){
-            //console.log("Invasor render at: " + this.x + " _ " + this.y); 
             ctx.drawImage(this.sprite[this.spriteIndex],this.x,this.y,this.width,this.height); 
         }
     }
@@ -113,6 +112,5 @@ class Alien{
         console.log("Alien shooted shoot"); 
         invasorBullet.SetPosition(this.x + this.width/2, this.y);
         invasorBullet.imageReady = true;
-
     }
 }

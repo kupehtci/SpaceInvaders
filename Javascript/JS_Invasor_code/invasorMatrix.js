@@ -81,7 +81,7 @@ class InvasorMatrix{
 
         
         //A random invasor at the down line shoots each X ticks 
-        if(tick % 70 == 10){
+        if(tick % 70 == 10 && !invasorBullet?.imageReady){
             this.ShootInvaderBellow(); 
         }
     }
@@ -114,6 +114,12 @@ class InvasorMatrix{
         //Update number of columns and rows
         this.numColumns = numColumns;
         this.numRows = numRows;
+    }
+
+    ClearMatrix(){
+        this.invasors.forEach(invasor => {
+            invasor.active = false;
+        });
     }
 
     ShootInvaderBellow(){

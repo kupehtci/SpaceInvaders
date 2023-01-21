@@ -5,6 +5,12 @@ class PlayerShip{
         this.x = canvas.width/2; 
         
         this.y = canvas.height * 11/12; 
+
+        /** @type {Number} Initial position X of the player ship*/
+        this.initialPosX = this.x;
+        /** @type {Number} Initial position Y of the player ship*/
+        this.initialPosY = this.y;
+
         this.speedX = 0; 
         this.speedY = 0; 
         this.speed = 300; 
@@ -13,6 +19,7 @@ class PlayerShip{
         this.imageReady = false; 
         var image = new Image(); 
 
+        /**@type {number} Scale to render the player */
         this.scale = 3; 
 
         image.onload  = () => {
@@ -30,7 +37,7 @@ class PlayerShip{
         this.enableShoot = true; 
 
         //VARS FOR LIVES 
-        this.lives = 3; 
+        this.lives = 1; 
     }
 
     //Set position of the PlayerShip

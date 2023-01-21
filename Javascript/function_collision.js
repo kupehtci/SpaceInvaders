@@ -6,16 +6,16 @@
  */
 function collision(obj1, obj2) {
     let a = {
-        d: obj1.y + obj1.height,
-        u: obj1.y,
-        l: obj1.x,
-        r: obj1.x + obj1.width,
+        d: obj1?.y + obj1?.height,
+        u: obj1?.y,
+        l: obj1?.x,
+        r: obj1?.x + obj1?.width,
     };
     let b = {
-        d: obj2.y + obj2.height,
-        u: obj2.y,
-        l: obj2.x,
-        r: obj2.x + obj2.width
+        d: obj2?.y + obj2?.height,
+        u: obj2?.y,
+        l: obj2?.x,
+        r: obj2?.x + obj2?.width
     };
 
     if (a.r >= b.l && a.l <= b.r && a.u < b.d && a.d > b.u) {

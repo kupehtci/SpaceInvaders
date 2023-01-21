@@ -7,6 +7,7 @@ class InvasorBullet{
 
         //LOAD IMAGE AND IMAGE VARS
         this.imageReady = false; 
+        this.chargedImage = false; 
         var image = new Image(); 
 
         this.scale = 3; 
@@ -15,12 +16,13 @@ class InvasorBullet{
             this.height = image.height * this.scale; 
             this.width = image.width * this.scale; 
 
-            this.sprite = image; 
-            this.imageReady = false; 
+            this.sprite = image;  
+            this.chargedImage = true; 
         }
 
         image.src = "./Assets/alienBullet2.png";
     }
+    
     Update (modifier)
     {
         //Check if it reaches the top of the screen    
@@ -35,16 +37,17 @@ class InvasorBullet{
         }
     }
 
-    //Check if it reaches the top of the screen 
+    /**
+     * Check if it reaches the bottom of the screen
+     */
     CheckScreenBorders(){
 
         //Check if getting out
-        var gettingOut = (this.y + this.height <= 0); 
+        var gettingOut = (this.y + this.height >= screenHeight); 
 
         //If getting out change the direction of the movement and set a position to avoid getting out
         if(gettingOut)
         {
-            //this.speedY = 0; 
             this.y = 0; 
             this.imageReady = false; //stop rendering image
         }
