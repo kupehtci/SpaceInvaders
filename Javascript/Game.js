@@ -115,7 +115,9 @@ function Update(keysDownArray, modifier, ticks){
 	invasorMatrix.invasors.forEach(invasor => {
 		if(collision(invasor,pBullet) && pBullet.imageReady && invasor.active){
 			enemyDeathSound.currentTime = 0;
-    		enemyDeathSound.play();
+    		enemyDeathSound.volume = 0.3;
+			enemyDeathSound.play();			
+
 			//Destroy invasor and bullet
 			invasor.active = false; 
 			pBullet.imageReady = false; 
@@ -147,6 +149,7 @@ function Update(keysDownArray, modifier, ticks){
 	//Check invaderBullet collision with playerBullet
 	if(collision(invasorBullet,pBullet) && pBullet.imageReady && invasorBullet.imageReady){
 			bulletClash.currentTime = 0;
+			enemyDeathSound.volume = 0.3;
     		bulletClash.play();
 			//Destroy invasorBullet and playerBullet
 			invasorBullet.imageReady = false; 
@@ -161,6 +164,7 @@ function Update(keysDownArray, modifier, ticks){
 
 			if(collision(pBullet,barriers[i]?.barrierBlocks[j])){
 				bulletBlocked.currentTime = 0;
+				bulletBlocked.volume = 0.3;
     			bulletBlocked.play();
 				barriers[i]?.barrierBlocks?.splice(j,1); 
 				pBullet.imageReady = false; 
