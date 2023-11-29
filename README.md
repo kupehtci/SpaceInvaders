@@ -1,3 +1,9 @@
+# REPOSITORY
+
+This proyect is a space invaders similar game development natively in web using html canvas to render the sprites. 
+The entire game is made only using Javascript, HTML and CSS
+
+
 # SpaceInvaders
  Space invaders web game. 
 
